@@ -1,0 +1,20 @@
+ 
+ {% extends 'layout.html' %}
+ 
+ {% load static %}
+ {% block title %}
+ <title> Homepage </title>
+ {% endblock %}
+
+ 
+   
+
+{% comment %} yaha chai show_product vaneko variable ho jsle context vitra ko key value pair ma product vanne key lai samatxa ra conntext  ma vako sabai element access garxa {% endcomment %}
+
+{% block main_content %}
+{% include 'products/imageslider.html' %}
+
+
+{% endblock %}
+
+{% comment %} note yaha extend vanne line of code le layout ko content lai add gareko xa mathy list ra tespaxi main content ma chai yo index ko content rakheko xa  {% endcomment %}

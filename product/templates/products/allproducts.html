@@ -1,0 +1,76 @@
+ 
+ {% extends 'admins/index.html' %}
+ 
+ {% load static %}
+ {% load crispy_forms_tags %}
+ {% block title %}
+ <title> Product List </title>
+ {% endblock %}
+
+ 
+{% comment %} yaha chai show_product vaneko variable ho jsle context vitra ko key value pair ma product vanne key lai samatxa ra conntext  ma vako sabai element access garxa {% endcomment %}
+
+{% block admin_content %}
+<div class ="container mb-5 mt-2">
+    <div class= "d-flex row justify-content-center">
+   <div class= "col-md-10">
+    {% for msg in messages%}
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success">
+        {{msg}}
+    </div>
+
+    {% elif mgs.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+    <div class="alert alert-danger">
+        {{msg}}
+    </div>
+
+    {% endif%}
+
+    {% endfor %}
+    
+   <h1 class= "text-success text-center">All Products</h1>
+ <table class= "table table-bordered">
+    <tr class="table-dark">
+        <th>Product Name </th>
+        <th>Product Price </th>
+        <th>Quantity </th>
+        <th>Image </th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Created At</th>
+        <th> Action </th>
+        
+        {% for show_product in product %}
+    </tr>
+    <tr>
+        <td>{{show_product.product_name}} </td>
+        <td>{{show_product.product_price}} </td>
+        <td>{{show_product.quantity}} </td>
+        <td>
+            <img src= "/{{show_product.image}}" alt="{{show_product.product.name}}" width="200px">
+        </td>
+        <td>{{show_product.description}} </td>
+        <td>{{show_product.category}} </td>
+        <td>{{show_product.created_at}}</td>
+        <th>
+            <a href = "{% url 'updateproduct' show_product.id %}">
+                <i class="bi bi-pencil-square text-warning fs-2"></i></a>
+            &nbsp;
+                <a href="{% url 'deleteproduct' show_product.id %}" onclick = "return alert('Are you sure want to delete?')">
+                <i class="bi bi-trash-fill text-danger fs-2"></i>   
+            </a>
+        </th>
+    </tr>
+
+        {% endfor %}
+    
+    
+ </table>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% comment %} note yaha extend vanne line of code le layout ko content lai add gareko xa mathy list ra tespaxi main content ma chai yo index ko content rakheko xa  {% endcomment %}

@@ -1,0 +1,46 @@
+<style>
+.card{
+    height:200px;
+    width:300px;
+
+}
+.card img {
+    height:200px;
+    width:auto;
+}
+.card-img-top:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: all 1.2s;
+}
+.card{
+    overflow: hidden;
+}
+
+
+
+</style>
+
+
+{% extends 'layout.html'%}
+{% block main_content %}
+{%include 'products/imageslider.html'%}
+<div class = "container-fluid"> 
+<div class="row my-3">
+    {%for p in product %}
+    <div class="col">
+      <div class="card my-3">
+        <img src="/{{p.image}}" class="card-img-top" alt="{{p.product_name}}">
+        <div class="card-body">
+          <h5 class="card-title">{{p.product_name}}</h5>
+         <h2 class = "card-price">{{p.product_price}}</h2>
+         <a href = "{% url 'productdetail' p.id%}">
+          <button class = "btn btn-primary"> View Details </button> </a>
+        </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+ 
+</div>
+{% endblock%}
