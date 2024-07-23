@@ -1,5 +1,5 @@
  
- {% extends 'admins/index.html' %}
+ {% extends 'layout.html' %}
  
  {% load static %}
  {% load crispy_forms_tags %}
@@ -10,7 +10,7 @@
  
 {% comment %} yaha chai show_product vaneko variable ho jsle context vitra ko key value pair ma product vanne key lai samatxa ra conntext  ma vako sabai element access garxa {% endcomment %}
 
-{% block admin_content %}
+{% block main_content %}
 <div class ="container mb-5 mt-2">
     <div class= "d-flex row justify-content-center">
    <div class= "col-md-10">
@@ -29,38 +29,32 @@
 
     {% endfor %}
     
-   <h1 class= "text-success text-center">All Products</h1>
+   <h1 class= "text-success text-center">My Orders</h1>
  <table class= "table table-bordered">
     <tr class="table-dark">
         <th>Product Name </th>
         <th>Product Price </th>
         <th>Quantity </th>
         <th>Image </th>
-        <th>Description</th>
+        <th>Total Price</th>
         <th>Category</th>
-        <th>Created At</th>
-        <th> Action </th>
+        <th> Payment Method </th>
         </tr>
-        {% for show_product in product %}
+        
+        {% for o in order %}
     
     <tr>
-        <td>{{show_product.product_name}} </td>
-        <td>{{show_product.product_price}} </td>
-        <td>{{show_product.quantity}} </td>
+        <td>{{o.product.product_name}} </td>
+        <td>{{o.product.product_price}} </td>
+        <td>{{o.quantity}} </td>
         <td>
-            <img src= "/{{show_product.image}}" alt="{{show_product.product.name}}" width="200px">
+            <img src= "/{{o.product.image}}" alt="{{o.product.product_name}}" width="200px">
         </td>
-        <td>{{show_product.description}} </td>
-        <td>{{show_product.category}} </td>
-        <td>{{show_product.created_at}}</td>
-        <th>
-            <a href = "{% url 'updateproduct' show_product.id %}">
-                <i class="bi bi-pencil-square text-warning fs-2"></i></a>
-            &nbsp;
-                <a href="{% url 'deleteproduct' show_product.id %}" onclick = "return alert('Are you sure want to delete?')">
-                <i class="bi bi-trash-fill text-danger fs-2"></i>   
-            </a>
-        </th>
+        <td>{{o.total_price}} </td>
+        <td>{{o.product.category}} </td>
+        <td>{{o.payment_method}} </td>
+        
+       
     </tr>
 
         {% endfor %}

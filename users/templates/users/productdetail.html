@@ -15,7 +15,24 @@
 
 {% extends 'layout.html'%}
 {% block main_content %}
+
+ {% for msg in messages %}
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success">
+        {{msg}}
+    </div>
+    {% endif %}
+
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger">
+        {{msg}}
+    </div>
+
+    {% endif %}
+
+    {% endfor %}
 <div class = "container-fluid my-5">
+ 
     <div class = "d-flex justify-content-around row">
     <div class = "col-md-4 shadow-lg">
         <div class = "detail-img rounded">
@@ -28,7 +45,7 @@
         <h2>Product Price: Rs. {{product.product_price}} </h2>
         <h3> {{product.quantity}} </h3>
         <p> {{product.description}} </p>
-        <a href = "{% url 'addtocart' product.id%}">
+        <a href = "{% url 'addtocart' product.id %}">
             <button class = "btn btn-primary"> Add To Cart </button> </a>
         
     </div>

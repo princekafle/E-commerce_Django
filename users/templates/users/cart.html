@@ -1,35 +1,35 @@
  
- {% extends 'admins/index.html' %}
- 
+ {% extends 'layout.html' %}
  {% load static %}
  {% load crispy_forms_tags %}
  {% block title %}
- <title> Product List </title>
+ <title> Ecommerce | MyCart </title>
  {% endblock %}
 
  
 {% comment %} yaha chai show_product vaneko variable ho jsle context vitra ko key value pair ma product vanne key lai samatxa ra conntext  ma vako sabai element access garxa {% endcomment %}
 
-{% block admin_content %}
+{% block main_content %}
 <div class ="container mb-5 mt-2">
     <div class= "d-flex row justify-content-center">
    <div class= "col-md-10">
-    {% for msg in messages%}
+    {% for msg in messages %}
     {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
     <div class="alert alert-success">
         {{msg}}
     </div>
+    {% endif %}
 
-    {% elif mgs.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
     <div class="alert alert-danger">
         {{msg}}
     </div>
 
-    {% endif%}
+    {% endif %}
 
     {% endfor %}
     
-   <h1 class= "text-success text-center">All Products</h1>
+   <h1 class= "text-success text-center">My Cart</h1>
  <table class= "table table-bordered">
     <tr class="table-dark">
         <th>Product Name </th>
@@ -41,23 +41,24 @@
         <th>Created At</th>
         <th> Action </th>
         </tr>
-        {% for show_product in product %}
+        
+        {% for i in items %}
     
     <tr>
-        <td>{{show_product.product_name}} </td>
-        <td>{{show_product.product_price}} </td>
-        <td>{{show_product.quantity}} </td>
+        <td>{{i.product.product_name}} </td>
+        <td>{{i.product.product_price}} </td>
+        <td>{{i.product.quantity}} </td>
         <td>
-            <img src= "/{{show_product.image}}" alt="{{show_product.product.name}}" width="200px">
+            <img src= "/{{i.product.image}}" alt="{{i.product.product_name}}" width="200px">
         </td>
-        <td>{{show_product.description}} </td>
-        <td>{{show_product.category}} </td>
-        <td>{{show_product.created_at}}</td>
+        <td>{{i.product.description}} </td>
+        <td>{{i.product.category}} </td>
+        
         <th>
-            <a href = "{% url 'updateproduct' show_product.id %}">
-                <i class="bi bi-pencil-square text-warning fs-2"></i></a>
+            <a href = "{% url 'order' i.product.id i.id%}" class = "text-info">
+               Order Now</a>
             &nbsp;
-                <a href="{% url 'deleteproduct' show_product.id %}" onclick = "return alert('Are you sure want to delete?')">
+                <a href="{% url 'deletecart' i.id %}" onclick = "return alert('Are you sure want to delete?')">
                 <i class="bi bi-trash-fill text-danger fs-2"></i>   
             </a>
         </th>
